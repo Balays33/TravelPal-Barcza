@@ -16,6 +16,8 @@ $$(document).on('deviceready', function() {
     console.log("Device is ready!");
     // automatt get geolocation to the progarm
     geoLocation();
+    getTime();
+    
 });
 
 
@@ -44,10 +46,40 @@ $$(document).on('pageInit', '.page[data-page="about"]', function (e) {
     myApp.alert('Here comes About page');
 })
 
+// get time
+function getTime(){
+    //alert('Hello');
+
+    var d = new Date();
+    var d1 = new Date().toLocaleTimeString(); // 11:18:48 AM
+    
+    document.getElementById("gettimes").innerHTML = d1;
+    //document.getElementById("getminutes").innerHTML = d.getMinutes();
+    //document.getElementById("gettime").innerHTML = d.getHours();
+    console.log(d1);
+
+    var today = new Date().toLocaleDateString();
+       //  07-06-2016 06:38:34
+    //var dd = String(today.getDate()).padStart(2, '0');
+    //var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    //var yyyy = today.getFullYear();
+
+    //today = mm + '/' + dd + '/' + yyyy;
+    document.getElementById("getmount").innerHTML = today;
+    //document.write(today);
+
+     
+}
 
 // global variable
 var Latitude;
 var Longitude;
+
+function sendLocation(){
+    var lat =Latitude;
+    var ltu = Longitude;
+    getLocationMain(lat,ltu);
+}
 
 // geoLocation function
 
@@ -77,6 +109,9 @@ function geoLocation(){
                            Longitude =position.coords.longitude;
                             console.log(Latitude);
                             console.log(Longitude);
+                            openCage();
+                            getLocationMain(Latitude,Longitude);
+                            weatherMain(Latitude,Longitude);
                              
                             
     }
@@ -89,6 +124,80 @@ function geoLocation(){
         console.log(error);
     }
  
+
+// Weater main
+
+function weatherMain(Latitude,Longitude) {
+    var Latitude = Latitude;
+    var Longitude = Longitude;
+    var http = new XMLHttpRequest();
+    //const url = 'https://api.darksky.net/forecast/3ad7f8e54c6fdcafbe0dfa539a9ae18c/37.8267,-122.4233';
+    const url = 'https://api.darksky.net/forecast/3ad7f8e54c6fdcafbe0dfa539a9ae18c/' + Latitude + ',' + Longitude +'';
+    
+    http.open("GET", url);
+    http.send();
+
+    http.onreadystatechange = (e) => {
+
+        // First, I'm extracting the reponse from the 
+        // http object in text format
+        var response = http.responseText;
+
+        // As we know that answer is a JSON object,
+        // we can parse it and handle it as such
+        var responseJSON = JSON.parse(response);
+
+        // Printing the result JSON to the console
+        console.log(responseJSON);
+        var locationTimezone = responseJSON.timezone;
+        console.log(locationTimezone);
+        var temp = responseJSON.currently.temperature;
+        console.log(temp);
+        var celsius = Math.floor((temp - 32) * 5 / 9);
+        
+        var daily = responseJSON.daily.summary;
+        
+        //Skycons
+        
+			var iconRequest = responseJSON.currently.icon;
+			
+			var icons = new Skycons({'color' : '#eeeeee'});
+			
+			var iconList = [
+				"clear-day",
+				"clear-night",
+				"partly-cloudy-day",
+				"partly-cloudy-night",
+				"cloudy",
+				"rain",
+				"sleet",
+				"snow",
+				"wind",
+				"fog"
+			];		
+			console.log(icons);
+			for (i = 0; i < iconList.length; i++) {
+				if (iconRequest == iconList[i]) {
+						icons.set('icon', iconList[i]);
+					
+				}
+			}
+			icons.play();
+		
+
+        
+        
+        //document.getElementById('location-timezone').innerHTML = locationTimezone;
+        document.getElementById('temperatureMain').innerHTML = celsius.toFixed(1);
+        document.getElementById('daily').innerHTML = daily;
+    }
+}
+
+        
+        
+
+
+
     // Options: throw an error if no update is received every 30 seconds.
     //
    // var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 30000 });
@@ -138,12 +247,16 @@ function geoLocation(){
         var city = responseJSON.results[0].components.city;
         var country = responseJSON.results[0].components.country;
         var currency = responseJSON.results[0].annotations.currency.name;
+        var wCity = responseJSON.results[0].components.city;
 
         // Formattng data to put it on the front end
         var oc = "City: " + city + "<br>Country: " + country + "<br>Currency: " + currency;
 
         // Placing formatted data on the front ed
         document.getElementById('opencage').innerHTML = oc;
+        document.getElementById('city').innerHTML = wCity;
     }
+
+   
     
 }

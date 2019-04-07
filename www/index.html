@@ -72,6 +72,25 @@
                     <div class="page-content">
                         <div class="content-block">
                             <p>Page content goes here</p>
+                             <!-- this place the location and time -->
+                            <div class="Welcome">
+                                <h1 id="city"></h1>
+                                <h1 id="gettimes"></h1>
+                                <h2 id="getmount"></h2>
+
+                            </div>
+                            <div class="Weather">
+                                <h4>Weather</h4>
+                            <div id="inline">
+                                <h3 id="temperatureMain" +°C></h3>
+                                <h3>°C</h3>
+                                <div class='col-lg-4' style = 'margin-left: 5%'>
+                                        <canvas id = 'icon'></canvas>
+                                       </div>
+                            </div>
+                                <p id="daily"></p>
+                                
+                            </div>
 
                              <!-- get geolocation -->
                              <div id="geolocation">Waiting for position..</div>
@@ -110,7 +129,7 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
     <script type="text/javascript" src="js/my-app.js"></script>
-    <script type="text/javascript" src="js/gettime.js"></script>
+    <script src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
     <script type="text/javascript" src="js/weather.js"></script>
 
 </body>

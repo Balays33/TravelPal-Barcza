@@ -13,3 +13,23 @@
 .statusbar-overlay {
     background: #000000;
 }
+
+.Welcome{
+    background-color: rgb(240, 132, 240);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    border-radius: 25px;
+    color: rgb(87, 12, 184);
+    
+}
+.Weather{
+    background-color: rgb(240, 132, 240);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: left;
+    padding-left: 30px;
+    border-radius: 25px;
+    color: rgb(135, 6, 255);
+    display: inline-block;
+}
+
+#inline{width:100%;height:auto;display:flex;}
