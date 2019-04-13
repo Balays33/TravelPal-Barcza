@@ -1,8 +1,8 @@
 
 
 function weather(Latitude,Longitude) {
-    var Latitude = Latitude;
-    var Longitude = Longitude;
+    
+    console.log("HHH");
     var http = new XMLHttpRequest();
     const url = 'https://api.darksky.net/forecast/3ad7f8e54c6fdcafbe0dfa539a9ae18c/' + Latitude + ',' + Longitude +'';
     
@@ -60,6 +60,10 @@ function weather(Latitude,Longitude) {
         document.getElementById('temperature').innerHTML = celsiusSite.toFixed(1);
         document.getElementById('daily').innerHTML = daily;
         document.getElementById('proto').innerHTML = proto;
-        document.getElementById('location-timezone').innerHTML = celsius.toFixed(1);
+        document.getElementById('location-timezone').innerHTML = locationTimezone;
     }
+}
+
+function test(){
+    alert("hi");
 }
