@@ -112,7 +112,6 @@ function geoLocation(){
                             console.log(Latitude);
                             console.log(Longitude);
                             openCage();
-                            getLocationMain(Latitude,Longitude);
                             weatherMain(Latitude,Longitude);
                             weather(Latitude,Longitude);
                              

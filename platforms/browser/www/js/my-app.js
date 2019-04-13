@@ -114,6 +114,7 @@ function geoLocation(){
                             openCage();
                             getLocationMain(Latitude,Longitude);
                             weatherMain(Latitude,Longitude);
+                            weather(Latitude,Longitude);
                              
                             
     }
@@ -189,7 +190,7 @@ function weatherMain(Latitude,Longitude) {
         //document.getElementById('location-timezone').innerHTML = locationTimezone;
         document.getElementById('temperatureMain').innerHTML = celsius.toFixed(1);
         document.getElementById('daily').innerHTML = daily;
-        document.getElementById('proto').innerHTML = proto;
+        document.getElementById('location-timezone').innerHTML = celsius.toFixed(1);
     }
 }
 
