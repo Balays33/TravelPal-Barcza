@@ -47,16 +47,16 @@ $$(document).on('pageInit', '.page[data-page="about"]', function (e) {
 })
 
 // get time
-function getTime(){
+function getTime( ){
     //alert('Hello');
-
+    //setTimeout("getTime()", 1000); 
     var d = new Date();
     var d1 = new Date().toLocaleTimeString(); // 11:18:48 AM
     
     document.getElementById("gettimes").innerHTML = d1;
     //document.getElementById("getminutes").innerHTML = d.getMinutes();
     //document.getElementById("gettime").innerHTML = d.getHours();
-    console.log(d1);
+    //console.log(d1);
 
     var today = new Date().toLocaleDateString();
        //  07-06-2016 06:38:34
@@ -68,8 +68,10 @@ function getTime(){
     document.getElementById("getmount").innerHTML = today;
     //document.write(today);
 
+    //setTimeout(getTime, 1000);
      
 }
+
 
 // global variable
 var Latitude;
@@ -184,12 +186,10 @@ function weatherMain(Latitude,Longitude) {
 			}
 			icons.play();
 		
-
-        
-        
         //document.getElementById('location-timezone').innerHTML = locationTimezone;
         document.getElementById('temperatureMain').innerHTML = celsius.toFixed(1);
         document.getElementById('daily').innerHTML = daily;
+        document.getElementById('proto').innerHTML = proto;
     }
 }
 
@@ -248,6 +248,7 @@ function weatherMain(Latitude,Longitude) {
         var country = responseJSON.results[0].components.country;
         var currency = responseJSON.results[0].annotations.currency.name;
         var wCity = responseJSON.results[0].components.city;
+        v
 
         // Formattng data to put it on the front end
         var oc = "City: " + city + "<br>Country: " + country + "<br>Currency: " + currency;
@@ -255,6 +256,7 @@ function weatherMain(Latitude,Longitude) {
         // Placing formatted data on the front ed
         document.getElementById('opencage').innerHTML = oc;
         document.getElementById('city').innerHTML = wCity;
+       // document.getElementById('country').innerHTML = country;
     }
 
    
