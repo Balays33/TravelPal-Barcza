@@ -68,7 +68,7 @@ function getTime( ){
     document.getElementById("getmount").innerHTML = today;
     //document.write(today);
 
-    //setTimeout(getTime, 1000);
+    setTimeout(getTime, 1000);
      
 }
 
@@ -114,6 +114,7 @@ function geoLocation(){
                             openCage();
                             getLocationMain(Latitude,Longitude);
                             weatherMain(Latitude,Longitude);
+                            weather(Latitude,Longitude);
                              
                             
     }
@@ -189,7 +190,7 @@ function weatherMain(Latitude,Longitude) {
         //document.getElementById('location-timezone').innerHTML = locationTimezone;
         document.getElementById('temperatureMain').innerHTML = celsius.toFixed(1);
         document.getElementById('daily').innerHTML = daily;
-        document.getElementById('proto').innerHTML = proto;
+        document.getElementById('location-timezone').innerHTML = celsius.toFixed(1);
     }
 }
 
@@ -248,7 +249,7 @@ function weatherMain(Latitude,Longitude) {
         var country = responseJSON.results[0].components.country;
         var currency = responseJSON.results[0].annotations.currency.name;
         var wCity = responseJSON.results[0].components.city;
-        v
+        
 
         // Formattng data to put it on the front end
         var oc = "City: " + city + "<br>Country: " + country + "<br>Currency: " + currency;
@@ -256,7 +257,7 @@ function weatherMain(Latitude,Longitude) {
         // Placing formatted data on the front ed
         document.getElementById('opencage').innerHTML = oc;
         document.getElementById('city').innerHTML = wCity;
-       // document.getElementById('country').innerHTML = country;
+        document.getElementById('country').innerHTML = country;
     }
 
    

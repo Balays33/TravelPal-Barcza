@@ -56,7 +56,7 @@ function getTime( ){
     document.getElementById("gettimes").innerHTML = d1;
     //document.getElementById("getminutes").innerHTML = d.getMinutes();
     //document.getElementById("gettime").innerHTML = d.getHours();
-    console.log(d1);
+    //console.log(d1);
 
     var today = new Date().toLocaleDateString();
        //  07-06-2016 06:38:34
@@ -248,7 +248,7 @@ function weatherMain(Latitude,Longitude) {
         var country = responseJSON.results[0].components.country;
         var currency = responseJSON.results[0].annotations.currency.name;
         var wCity = responseJSON.results[0].components.city;
-        v
+        
 
         // Formattng data to put it on the front end
         var oc = "City: " + city + "<br>Country: " + country + "<br>Currency: " + currency;
@@ -256,7 +256,7 @@ function weatherMain(Latitude,Longitude) {
         // Placing formatted data on the front ed
         document.getElementById('opencage').innerHTML = oc;
         document.getElementById('city').innerHTML = wCity;
-       // document.getElementById('country').innerHTML = country;
+        document.getElementById('country').innerHTML = country;
     }
 
    
