@@ -33,3 +33,28 @@
 }
 
 #inline{width:100%;height:auto;display:flex;}
+
+.buttonweather{
+    width: 100%;
+}
+
+#box {
+    height: 60px;
+    width: 100%;
+    background:  rgb(240, 132, 240);
+    font-size: 20px;
+    text-align: center;
+    border-radius: 25px;
+    color: rgb(87, 12, 184);
+  }
+
+  #box1 {
+    height: 50px;
+    width: 100%;
+    background:  rgb(240, 132, 240);
+    font-size: 15px;
+    color: black;
+    text-align: center;
+    border-radius: 25px;
+    font-family: 'Comic Sans MS', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }

@@ -26,6 +26,7 @@ $$(document).on('deviceready', function() {
 // Option 1. Using page callback for page (for "about" page in this case) (recommended way):
 myApp.onPageInit('about', function (page) {
     // Do something here for "about" page
+    
 
 })
 
@@ -36,14 +37,14 @@ $$(document).on('pageInit', function (e) {
 
     if (page.name === 'about') {
         // Following code will be executed for page with data-page attribute equal to "about"
-        myApp.alert('Here comes About page');
+        //myApp.alert('Here comes About page');
     }
 })
 
 // Option 2. Using live 'pageInit' event handlers for each page
 $$(document).on('pageInit', '.page[data-page="about"]', function (e) {
     // Following code will be executed for page with data-page attribute equal to "about"
-    myApp.alert('Here comes About page');
+   // myApp.alert('Here comes About page');
 })
 
 // get time
@@ -112,9 +113,8 @@ function geoLocation(){
                             console.log(Latitude);
                             console.log(Longitude);
                             openCage();
-                            getLocationMain(Latitude,Longitude);
                             weatherMain(Latitude,Longitude);
-                            weather(Latitude,Longitude);
+                            GEOweather(Latitude,Longitude);
                              
                             
     }
@@ -190,7 +190,7 @@ function weatherMain(Latitude,Longitude) {
         //document.getElementById('location-timezone').innerHTML = locationTimezone;
         document.getElementById('temperatureMain').innerHTML = celsius.toFixed(1);
         document.getElementById('daily').innerHTML = daily;
-        document.getElementById('location-timezone').innerHTML = celsius.toFixed(1);
+        
     }
 }
 
@@ -249,6 +249,7 @@ function weatherMain(Latitude,Longitude) {
         var country = responseJSON.results[0].components.country;
         var currency = responseJSON.results[0].annotations.currency.name;
         var wCity = responseJSON.results[0].components.city;
+        var countryCode = responseJSON.results[0].components.country_code;
         
 
         // Formattng data to put it on the front end
@@ -258,8 +259,9 @@ function weatherMain(Latitude,Longitude) {
         document.getElementById('opencage').innerHTML = oc;
         document.getElementById('city').innerHTML = wCity;
         document.getElementById('country').innerHTML = country;
-    }
+        
+        //CountryAPI(countryCode);
 
-   
-    
+    }   
 }
+

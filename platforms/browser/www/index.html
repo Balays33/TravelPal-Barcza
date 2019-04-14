@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<httpProtocol>  
+        <customHeaders>  
+         <add name="Access-Control-Allow-Origin" value="*" />  
+         <add name="Access-Control-Allow-Headers" value="Content-Type" />  
+         <add name="Access-Control-Allow-Methods" value="GET, POST, PUT, DELETE, OPTIONS" />  
+        </customHeaders>  
+      </httpProtocol> 
 <html>
 <head>
     <!--
@@ -19,6 +26,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
+
+    
 
     <!-- Your app title -->
     <title>Travel Pal - Balazs Barcza</title>
@@ -108,9 +117,13 @@
 
 
                             <!-- Link to another page -->
-                            <a href="weather.html">Weather app</a>
-                            <br>
-                            <a href="about.html">About app</a>
+                            <div id="box">
+                                <a href="exchange.html">Exchange app</a>
+                                <br>
+                                <a href="weather.html">Weather app</a>
+                                <br>
+                                <a href="about.html">About app</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -130,6 +143,9 @@
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
     <script type="text/javascript" src="js/my-app.js"></script>
     <script src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
+
+    <script type="text/javascript" src="js/exchange.js"></script>
+    <script type="text/javascript" src="js/weather.js"></script>
 
 </body>
 
