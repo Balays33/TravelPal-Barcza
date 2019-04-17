@@ -17,6 +17,7 @@ $$(document).on('deviceready', function() {
     // automatt get geolocation to the progarm
     geoLocation();
     getTime();
+    convert();
     
 });
 
@@ -39,6 +40,7 @@ $$(document).on('pageInit', function (e) {
         // Following code will be executed for page with data-page attribute equal to "about"
         //myApp.alert('Here comes About page');
     }
+    
 })
 
 // Option 2. Using live 'pageInit' event handlers for each page
@@ -251,6 +253,8 @@ function weatherMain(Latitude,Longitude) {
         var wCity = responseJSON.results[0].components.city;
         var countryCode = responseJSON.results[0].components.country_code;
         
+        console.log("here!!!" + countryCode);
+        document.getElementById('littleFlag').src = "https://www.countryflags.io/" + countryCode + "/shiny/32.png";
 
         // Formattng data to put it on the front end
         var oc = "City: " + city + "<br>Country: " + country + "<br>Currency: " + currency;

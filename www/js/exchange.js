@@ -37,13 +37,14 @@ function CountryAPI(countryCode){
 
 }
 }
-*/
 CountryAPI();
+*/
+
 
 /* currency converter*/
 function convert(){
 
-    var input =document.getElementById('input').value;
+    
   
   
     var http = new XMLHttpRequest();
@@ -68,7 +69,9 @@ function convert(){
       console.log(rate);
   
       var result = input * rate;
-      document.getElementById('rated').innerHTML = result;
+      document.getElementById("/exchange/rated").innerHTML = result;
+      var input =document.getElementById('/exchange/input').value;
+      console.log(input);
   }
 }
 
