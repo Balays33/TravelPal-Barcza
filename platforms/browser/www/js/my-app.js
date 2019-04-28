@@ -78,6 +78,8 @@ function getTime( ){
 // global variable
 var Latitude;
 var Longitude;
+var contryToExchang;
+var currencyCODE;
 
 function sendLocation(){
     var lat =Latitude;
@@ -249,10 +251,14 @@ function openCage(){
         var currency = responseJSON.results[0].annotations.currency.name;
         var wCity = responseJSON.results[0].components.city;
         var countryCode = responseJSON.results[0].components.country_code;
+
+        contryToExchange =  responseJSON.results[0].components.country;
+        var currencyCODE = responseJSON.results[0].annotations.currency.iso_code;
+        convertlocal(currencyCODE);
         
         console.log("here!!!" + countryCode);
         document.getElementById('littleFlag').src = "https://www.countryflags.io/" + countryCode + "/shiny/32.png";
-        document.getElementById('/exchange/littleFlag').src = "https://www.countryflags.io/" + countryCode + "/shiny/32.png";
+        document.getElementById('exchange.html/littleFlag').src = "https://www.countryflags.io/" + countryCode + "/shiny/32.png";
         // Formattng data to put it on the front end
         var oc = "City: " + city + "<br>Country: " + country + "<br>Currency: " + currency;
 
@@ -260,7 +266,7 @@ function openCage(){
         document.getElementById('opencage').innerHTML = oc;
         document.getElementById('city').innerHTML = wCity;
         document.getElementById('country').innerHTML = country;
-        
+        document.getElementById('localexhange').innerHTML = contryToExchange;
         //CountryAPI(countryCode);
 
     }   
@@ -268,12 +274,13 @@ function openCage(){
 ///--------------------------------------------------------------------------///
 
 
-///////////////////////////////// Currency Converter //////////////////////////////////////////
+///////////////////////////////// Currency Converter USA - local //////////////////////////////////////////
 function convert(){
 
     var http = new XMLHttpRequest();
     const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies=EUR,GBP,CAD,PLN&source=USD';
-  
+    //const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies=EUR,GBP,CAD,PLN&source=USD';
+    
     http.open("GET", url);
     http.send();
   
@@ -290,12 +297,97 @@ function convert(){
       // Printing the result JSON to the console
       console.log(responseJSON);
       var rate = responseJSON.quotes.USDEUR;
-      console.log(rate);
-  
+      console.log("exchange java  :"+rate);
+      
+      document.getElementById('rate').innerHTML = rate;
+      
+      var input =document.getElementById('input').value;
+      console.log("INPUT here"+input);
       var result = input * rate;
-      document.getElementById("/exchange/rated").innerHTML = result;
-      var input =document.getElementById('/exchange/input').value;
-      console.log(input);
+      document.getElementById('result').innerHTML = result;
+      
+    
+  }
+}
+ //-----------------------------------------------------------------------------------------/////
+
+ ///////////////////////////////// Currency Converter Local- USD //////////////////////////////////////////
+
+ 
+function convertlocal(currencyCODE){
+
+    var http = new XMLHttpRequest();
+    //const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies=EUR,GBP,CAD,PLN&source=USD';
+    //const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies=USD&source=' + currencyCODE ;
+    const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&convert?from=' + currencyCODE + '&to=USD&amount=100';
+    console.log("should" +currencyCODE);
+    http.open("GET", url);
+    http.send();
+  
+    http.onreadystatechange = (e) => {
+          
+      // First, I'm extracting the reponse from the 
+      // http object in text format
+      var response = http.responseText;
+  
+      // As we know that answer is a JSON object,
+      // we can parse it and handle it as such
+      var responseJSON = JSON.parse(response); 
+  
+      // Printing the result JSON to the console
+      /*
+      console.log(responseJSON);
+      var rate = responseJSON.quotes.USDEUR;
+      console.log("exchange java  :"+rate);
+      
+      document.getElementById('rate').innerHTML = rate;
+      
+      var input =document.getElementById('inputlocal').value;
+      console.log("INPUT here from the local"+input);
+      var resultlocal = input * rate;
+      document.getElementById('resultlocal').innerHTML = result;
+      */
+    
   }
 }
 
+
+ //-----------------------------------------------------------------------------------------/////
+
+
+ ////////////////////////////////////// Google MAP ////////////////////////////////////
+
+ function initMap() {
+    var cct = {lat: 53.346, lng: -6.2588};
+    var map = new google.maps.Map(document.getElementById('about.html/map'),
+   { zoom: 12,
+    center: cct
+    }
+    );
+    var marker = new google.maps.Marker({
+    position: cct,
+    map: map
+    }); 
+    var otherloc = {lat: 53.3458, lng: -6.2575};
+    var marker2 = new google.maps.Marker({
+        position: otherloc,
+        map: map
+    })
+    var home = {lat: Latitude, lng: Longitude};
+    var marker3 = new google.maps.Marker({
+        position: home,
+        map: map
+    })
+}
+
+ //-------------------------------------------------------------------------------------------///
+
+ function takePics(){
+    navigator.camera.getPicture(cameraCallback, onError);
+}
+
+function cameraCallback(imageData){
+    var image = document.getElementById('cameraPicture');
+    image.src = imageData;
+
+}

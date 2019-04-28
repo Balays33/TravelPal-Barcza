@@ -25,21 +25,38 @@
                 </div>
 
 
-
-                <div id="exchange/rated">exchange</div>
+                <div id="localexhange">location</div>
+                <div id="rate">exchange</div>
+                
                 <div class="block">
                     <h3>From</h3>
                     <div class="row">
                         <img id="littleFlag" src="https://www.countryflags.io/us/shiny/32.png">
-                        <div id="test">picture</div>
                         <p>USD - US Dollar</p>
                     </div>
                 </div>
                 <input type="number" id="input" value="1">Amount</input><br>
-                <div id="exc"></div>
-
+                <div>
+                    <p>Result:</p><div id="result"></div>
+                </div>
                 <div class="buttonweather">
                     <button class="col button color-blue" onclick="convert()">convert</button>
+                </div>
+                
+                <div id="rate">exchange</div>
+                <div class="block">
+                    <h3>From</h3>
+                    <div class="row">
+                        <img id="littleFlag" src="https://www.countryflags.io/ie/shiny/32.png">
+                        <p>EUR - Euro</p>
+                    </div>
+                </div>
+                <input type="number" id="inputlocal" value="1">Amount</input><br>
+                <div>
+                    <p>Result:</p><div id="resultlocal"></div>
+                </div>
+                <div class="buttonweather">
+                    <button class="col button color-blue" onclick="convertlocal()">convert</button>
                 </div>
             </div>
         </div>

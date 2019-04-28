@@ -9,7 +9,7 @@
                 <span>Back</span>
             </a>
         </div>
-        <div class="center sliding">About</div>
+        <div class="center sliding">MAP</div>
         <div class="right">
             <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
         </div>
@@ -20,8 +20,22 @@
         <div class="page-content">
             <div class="content-block">
                 <p>Here is About page!</p>
-                <p>Fusce eros lectus, accumsan eget mi vel, iaculis tincidunt felis. Nulla tincidunt pharetra sagittis. Fusce in felis eros. Nulla sit amet aliquam lorem, et gravida ipsum. Mauris consectetur nisl non sollicitudin tristique. Praesent vitae metus ac quam rhoncus mattis vel et nisi. Aenean aliquet, felis quis dignissim iaculis, lectus quam tincidunt ligula, et venenatis turpis risus sed lorem. Morbi eu metus elit. Ut vel diam dolor.</p>
+                <div>
+                    <div id="gpslocation">Waiting the geolocation</div>
+                    <button class="col button color-blue" onclick="getLocation()">getLocation</button>
+                
+                    <div id="map"></div>
+                    <button class="col button color-blue" onclick="initMap()">GoogleMAp</button>
+                </div>
+                
+                <div>
+                    <img id="cameraPicture" height="50%" width="50%">
+                    <!--<img id="cameraPicture" height="50%" width="50%" style="transform:rotate(90deg);" > -->
+                
+                    <button class="col button color-green" onclick="takePics()">takePics</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApFPNQ2WxbEueUXMJBPHjLenlPnFo68ls&callback=initMap"></script>
