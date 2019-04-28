@@ -49,10 +49,9 @@ $$(document).on('pageInit', '.page[data-page="about"]', function (e) {
    // myApp.alert('Here comes About page');
 })
 
-// get time
+////////////////////////// get time ////////////////////////////
+
 function getTime( ){
-    //alert('Hello');
-    //setTimeout("getTime()", 1000); 
     var d = new Date();
     var d1 = new Date().toLocaleTimeString(); // 11:18:48 AM
     
@@ -72,9 +71,9 @@ function getTime( ){
     //document.write(today);
 
     setTimeout(getTime, 1000);
-     
+    
 }
-
+//------------------------------------------------------//
 
 // global variable
 var Latitude;
@@ -87,8 +86,6 @@ function sendLocation(){
 }
 
 // geoLocation function
-
-
 function geoLocation(){
    
     navigator.geolocation.getCurrentPosition(geoCallback, onError)
@@ -130,7 +127,7 @@ function geoLocation(){
     }
  
 
-// Weater main
+///////////////////////////// Weater main //////////////////////////////////////////
 
 function weatherMain(Latitude,Longitude) {
     var Latitude = Latitude;
@@ -195,7 +192,7 @@ function weatherMain(Latitude,Longitude) {
         
     }
 }
-
+///--------------------------------------------------------------------------////
         
         
 
@@ -206,9 +203,9 @@ function weatherMain(Latitude,Longitude) {
    // var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 30000 });
 
 
-   
+ ////////////////////////////////////////// OpenCage location information ////////////////////////////////////////  
 
-   function openCage(){
+function openCage(){
     
     console.log(Latitude , Longitude);
     // The XMLHttpRequest object, is the one in 
@@ -255,7 +252,7 @@ function weatherMain(Latitude,Longitude) {
         
         console.log("here!!!" + countryCode);
         document.getElementById('littleFlag').src = "https://www.countryflags.io/" + countryCode + "/shiny/32.png";
-
+        document.getElementById('/exchange/littleFlag').src = "https://www.countryflags.io/" + countryCode + "/shiny/32.png";
         // Formattng data to put it on the front end
         var oc = "City: " + city + "<br>Country: " + country + "<br>Currency: " + currency;
 
@@ -267,5 +264,38 @@ function weatherMain(Latitude,Longitude) {
         //CountryAPI(countryCode);
 
     }   
+}
+///--------------------------------------------------------------------------///
+
+
+///////////////////////////////// Currency Converter //////////////////////////////////////////
+function convert(){
+
+    var http = new XMLHttpRequest();
+    const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies=EUR,GBP,CAD,PLN&source=USD';
+  
+    http.open("GET", url);
+    http.send();
+  
+    http.onreadystatechange = (e) => {
+          
+      // First, I'm extracting the reponse from the 
+      // http object in text format
+      var response = http.responseText;
+  
+      // As we know that answer is a JSON object,
+      // we can parse it and handle it as such
+      var responseJSON = JSON.parse(response); 
+  
+      // Printing the result JSON to the console
+      console.log(responseJSON);
+      var rate = responseJSON.quotes.USDEUR;
+      console.log(rate);
+  
+      var result = input * rate;
+      document.getElementById("/exchange/rated").innerHTML = result;
+      var input =document.getElementById('/exchange/input').value;
+      console.log(input);
+  }
 }
 
