@@ -27,7 +27,7 @@ $$(document).on('deviceready', function() {
 // Option 1. Using page callback for page (for "about" page in this case) (recommended way):
 myApp.onPageInit('about', function (page) {
     // Do something here for "about" page
-    
+    initMap();
 
 })
 
@@ -359,7 +359,8 @@ function convertlocal(currencyCODE){
 
  function initMap() {
     var cct = {lat: 53.346, lng: -6.2588};
-    var map = new google.maps.Map(document.getElementById('about.html/map'),
+    console.log('here amilcar');
+    var map = new google.maps.Map(document.getElementById('map'),
    { zoom: 12,
     center: cct
     }

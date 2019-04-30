@@ -57,3 +57,12 @@
     border-radius: 25px;
     font-family: 'Comic Sans MS', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   }
+
+  .statusbar-overlay {
+    background: #000000;
+}
+
+#map {
+    height: 400px;
+    width: 100%;
+}
