@@ -29,4 +29,5 @@
     <plugin name="cordova-plugin-console" spec="~1.0.1" />
     <plugin name="cordova-plugin-statusbar" spec="~1.0.1" />
     <plugin name="cordova-plugin-chrome-apps-filesystem" spec="~1.0.5" />
+    <plugin name="cordova-plugin-file" spec="~6.0.1" />
 </widget>

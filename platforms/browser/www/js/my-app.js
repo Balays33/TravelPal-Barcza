@@ -432,13 +432,15 @@ function writeOutInfo(){
 
  ////-------------------------------------------   Storing files in the phone -----------------------------------------//////
 
+
 function tryingFile(){
 
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0,fileSystemCallback, onError);
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemCallback, onError);
     //document.addEventListener("deviceready", function() { 
-      //  window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemCallback, onError);
+        //window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemCallback, onError);
       //}, false);
-      
+     
+   
 }
 
 function fileSystemCallback(fs){
@@ -454,7 +456,7 @@ var fileSystemOptionals = { create: true, exclusive: false };
 
 function getFileCallback(fileEntry){
     
-    var dataObj = new Blob(['Hello world'], { type: 'text/plain' });
+    var dataObj = new Blob(['Hello'], { type: 'text/plain' });
     // Now decide what to do
     // Write to the file
     writeFile(fileEntry, dataObj);
