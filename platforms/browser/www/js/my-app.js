@@ -18,7 +18,6 @@ $$(document).on('deviceready', function() {
     geoLocation();
     getTime();
     convert();
-    
 });
 
 
@@ -39,6 +38,13 @@ $$(document).on('pageInit', function (e) {
     if (page.name === 'about') {
         // Following code will be executed for page with data-page attribute equal to "about"
         //myApp.alert('Here comes About page');
+        initMap();
+
+    }
+    if (page.name === 'WeaterApp') {
+        // Following code will be executed for page with data-page attribute equal to "WeaterApp"
+        myApp.alert('Here comes About page');
+        
     }
     
 })
@@ -48,6 +54,11 @@ $$(document).on('pageInit', '.page[data-page="about"]', function (e) {
     // Following code will be executed for page with data-page attribute equal to "about"
    // myApp.alert('Here comes About page');
 })
+
+
+
+
+
 
 ////////////////////////// get time ////////////////////////////
 
@@ -102,20 +113,22 @@ function geoLocation(){
     //
     function geoCallback(position) {
         console.log(position);
+        /*
         var element = document.getElementById('geolocation');
         element.innerHTML = 'Latitude: '  + position.coords.latitude      + '<br />' +
                             'Longitude: ' + position.coords.longitude     + '<br />' +
                             '<hr />'      + element.innerHTML;
-
+        */
                             // pass the location to opencage
                             
                            Latitude =position.coords.latitude;
                            Longitude =position.coords.longitude;
-                            console.log(Latitude);
-                            console.log(Longitude);
+                            console.log('Latitude: '+Latitude);
+                            console.log('Longitude: '+Longitude);
                             openCage();
                             weatherMain(Latitude,Longitude);
                             GEOweather(Latitude,Longitude);
+                    
                              
                             
     }
@@ -260,10 +273,10 @@ function openCage(){
         document.getElementById('littleFlag').src = "https://www.countryflags.io/" + countryCode + "/shiny/32.png";
         document.getElementById('exchange.html/littleFlag').src = "https://www.countryflags.io/" + countryCode + "/shiny/32.png";
         // Formattng data to put it on the front end
-        var oc = "City: " + city + "<br>Country: " + country + "<br>Currency: " + currency;
+        //var oc = "City: " + city + "<br>Country: " + country + "<br>Currency: " + currency;
 
         // Placing formatted data on the front ed
-        document.getElementById('opencage').innerHTML = oc;
+        //document.getElementById('opencage').innerHTML = oc;
         document.getElementById('city').innerHTML = wCity;
         document.getElementById('country').innerHTML = country;
         document.getElementById('localexhange').innerHTML = contryToExchange;
@@ -358,30 +371,149 @@ function convertlocal(currencyCODE){
  ////////////////////////////////////// Google MAP ////////////////////////////////////
 
  function initMap() {
-    var cct = {lat: 53.346, lng: -6.2588};
-    console.log('here amilcar');
+     //(Latitude,Longitude lat: 53.346, lng: -6.2588
+    var correctposition = {lat: Latitude, lng: Longitude};
+    console.log('Google MAP Latitude: '+Latitude+'Longitude: '+Longitude);
     var map = new google.maps.Map(document.getElementById('map'),
    { zoom: 12,
-    center: cct
-    }
-    );
+    center: correctposition
+    });
     var marker = new google.maps.Marker({
-    position: cct,
+    position: correctposition,
     map: map
     }); 
+    /*
     var otherloc = {lat: 53.3458, lng: -6.2575};
     var marker2 = new google.maps.Marker({
         position: otherloc,
         map: map
-    })
+    });
+    
     var home = {lat: Latitude, lng: Longitude};
     var marker3 = new google.maps.Marker({
         position: home,
         map: map
     })
+    */
+    writeOutInfo();
 }
 
- //-------------------------------------------------------------------------------------------///
+// get your location country city data and currency
+
+function writeOutInfo(){
+
+    var printOutLocation = document.getElementById('gpslocation');
+    printOutLocation.innerHTML = 'Latitude: '  + Latitude      + '<br />' +
+                                 'Longitude: ' + Longitude     + '<br />' +
+                                '<hr />'      + printOutLocation.innerHTML;
+
+    var http = new XMLHttpRequest();
+    const url = 'https://api.opencagedata.com/geocode/v1/json?q=53.346+-6.2588&key=b95ccb4da5784bfca72b01a6b2af690f';
+    http.open("GET", url);
+    http.send();
+    http.onreadystatechange = (e) => {
+        var response = http.responseText;
+        var responseJSON = JSON.parse(response);
+
+        console.log(responseJSON);
+
+        var house_number = responseJSON.results[0].components.house_number;
+        var road = responseJSON.results[0].components. road;
+        var city = responseJSON.results[0].components.city;
+        var postcode =responseJSON.results[0].components.postcode;
+        var country = responseJSON.results[0].components.country;
+        var currency = responseJSON.results[0].annotations.currency.name;
+
+        document.getElementById('getlocatinonC').innerHTML ="House number: "+house_number+"<br>Road: "+road+ "<br>City: " + city +"<br>Postcode:"+postcode+ 
+                                                            "<br>Country: " + country +"<br>Currency: " + currency;
+        }
+    }
+
+
+ ////-------------------------------------------   Storing files in the phone -----------------------------------------//////
+
+function tryingFile(){
+
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0,fileSystemCallback, onError);
+    //document.addEventListener("deviceready", function() { 
+      //  window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemCallback, onError);
+      //}, false);
+      
+}
+
+function fileSystemCallback(fs){
+
+    // Name of the file I want to create
+    var fileToCreate = "newPersistentFile.txt";
+
+    // Opening/creating the file
+    fs.root.getFile(fileToCreate, fileSystemOptionals, getFileCallback, onError);
+}
+
+var fileSystemOptionals = { create: true, exclusive: false };
+
+function getFileCallback(fileEntry){
+    
+    var dataObj = new Blob(['Hello world'], { type: 'text/plain' });
+    // Now decide what to do
+    // Write to the file
+    writeFile(fileEntry, dataObj);
+
+    // Or read the file
+    readFile(fileEntry);
+}
+
+// Let's write some files
+function writeFile(fileEntry, dataObj) {
+
+    // Create a FileWriter object for our FileEntry (log.txt).
+    fileEntry.createWriter(function (fileWriter) {
+
+        // If data object is not passed in,
+        // create a new Blob instead.
+        if (!dataObj) {
+            dataObj = new Blob(['Hello'], { type: 'text/plain' });
+        }
+
+        fileWriter.write(dataObj);
+
+        fileWriter.onwriteend = function() {
+            console.log("Successful file write...");
+        };
+
+        fileWriter.onerror = function (e) {
+            console.log("Failed file write: " + e.toString());
+        };
+
+    });
+}
+
+// Let's read some files
+function readFile(fileEntry) {
+
+    // Get the file from the file entry
+    fileEntry.file(function (file) {
+        
+        // Create the reader
+        var reader = new FileReader();
+        reader.readAsText(file);
+
+        reader.onloadend = function() {
+
+            console.log("Successful file read: " + this.result);
+            console.log("file path: " + fileEntry.fullPath);
+
+        };
+
+    }, onError);
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+    
+
+
+
+ //----------------------------------------CAMERA APP---------------------------------------------------///
 
  function takePics(){
     navigator.camera.getPicture(cameraCallback, onError);
@@ -392,3 +524,36 @@ function cameraCallback(imageData){
     image.src = imageData;
 
 }
+
+/////////////////////////////////////////////////////////////////////////////
+
+
+//---------------------------action sheet----------------------------------////
+/*
+var app = new Framework7();
+
+var $$ = Dom7;
+
+//- One group, three buttons
+var ac1 = app.actions.create({
+  buttons: [
+    {
+      text: 'Button1',
+      bold: true
+    },
+    {
+      text: 'Button2'
+    },
+    {
+      text: 'Cancel',
+      color: 'red'
+    },
+  ]
+})
+
+$$('.ac-1').on('click', function () {
+    ac1.open();
+});
+*/
+
+//////////////////////////////////////////////

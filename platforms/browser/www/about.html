@@ -9,7 +9,7 @@
                 <span>Back</span>
             </a>
         </div>
-        <div class="center sliding">MAP</div>
+        <div class="center sliding">Google MAP</div>
         <div class="right">
             <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
         </div>
@@ -19,13 +19,15 @@
     <div data-page="about" class="page">
         <div class="page-content">
             <div class="content-block">
-                <p>Here is About page!</p>
+                <div id="box1">
+                    <h1>Google MAP</h1>
+                </div>
                 <div>
-                    <div id="gpslocation">Waiting the geolocation</div>
-                    <button class="col button color-blue" onclick="getLocation()">getLocation</button>
-                
                     <div id="map"></div>
-                    <button class="col button color-blue" onclick="initMap()">GoogleMAp</button>
+                    <button class="col button color-blue" onclick="initMap()">GoogleMAP reload</button>
+                    <button class="col button color-blue" onclick="tryingFile()">Save your loaction data</button>
+                    <div id="gpslocation"></div>
+                    <div id="getlocatinonC">waiting for the City country</div>
                 </div>
                 
                 <div>
