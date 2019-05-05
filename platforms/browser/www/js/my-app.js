@@ -46,6 +46,13 @@ $$(document).on('pageInit', function (e) {
         myApp.alert('Here comes About page');
         
     }
+    if (page.name === 'exchange') {
+        // Following code will be executed for page with data-page attribute equal to "WeaterApp"
+        myApp.alert('Here comes exchange page');
+        //openCage();
+        
+        
+    }
     
 })
 
@@ -266,8 +273,9 @@ function openCage(){
         var countryCode = responseJSON.results[0].components.country_code;
 
         contryToExchange =  responseJSON.results[0].components.country;
-        var currencyCODE = responseJSON.results[0].annotations.currency.iso_code;
-        convertlocal(currencyCODE);
+        currencyCODE = responseJSON.results[0].annotations.currency.iso_code;
+        //convert(currencyCODE);
+        //convertlocal(currencyCODE);
         
         console.log("here!!!" + countryCode);
         document.getElementById('littleFlag').src = "https://www.countryflags.io/" + countryCode + "/shiny/32.png";
@@ -289,11 +297,12 @@ function openCage(){
 
 ///////////////////////////////// Currency Converter USA - local //////////////////////////////////////////
 function convert(){
-
+    openCage();
     var http = new XMLHttpRequest();
-    const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies=EUR,GBP,CAD,PLN&source=USD';
     //const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies=EUR,GBP,CAD,PLN&source=USD';
-    
+    //const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies=EUR,GBP,CAD,PLN&source=USD';
+    const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies='+currencyCODE+'&source=USD';
+    console.log("USAtoLocal exhange: " +currencyCODE);
     http.open("GET", url);
     http.send();
   
@@ -319,21 +328,32 @@ function convert(){
       var result = input * rate;
       document.getElementById('result').innerHTML = result;
       
-    
+      test(rate);
   }
+}
+
+function test(rate){
+    console.log('RATE'+rate);
+    this.rate2 = rate;
+    console.log('RATE2:'+rate2);
+    var input =document.getElementById('input').value;
+      console.log("INPUT TEST"+input);
+      var result = input * rate2;
+      document.getElementById('result').innerHTML = result;
+
 }
  //-----------------------------------------------------------------------------------------/////
 
  ///////////////////////////////// Currency Converter Local- USD //////////////////////////////////////////
 
- 
+/*
 function convertlocal(currencyCODE){
 
     var http = new XMLHttpRequest();
     //const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies=EUR,GBP,CAD,PLN&source=USD';
     //const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies=USD&source=' + currencyCODE ;
     const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&convert?from=' + currencyCODE + '&to=USD&amount=100';
-    console.log("should" +currencyCODE);
+    console.log("Location echange: " +currencyCODE);
     http.open("GET", url);
     http.send();
   
@@ -346,9 +366,9 @@ function convertlocal(currencyCODE){
       // As we know that answer is a JSON object,
       // we can parse it and handle it as such
       var responseJSON = JSON.parse(response); 
-  
+      console.log(responseJSON);
       // Printing the result JSON to the console
-      /*
+      
       console.log(responseJSON);
       var rate = responseJSON.quotes.USDEUR;
       console.log("exchange java  :"+rate);
@@ -359,11 +379,11 @@ function convertlocal(currencyCODE){
       console.log("INPUT here from the local"+input);
       var resultlocal = input * rate;
       document.getElementById('resultlocal').innerHTML = result;
-      */
+      
     
   }
 }
-
+*/
 
  //-----------------------------------------------------------------------------------------/////
 
