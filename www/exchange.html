@@ -17,43 +17,51 @@
 </div>
 <div class="pages">
 
-    <div data-page="about" class="page">
+    <div data-page="exchange" class="page">
         <div class="page-content">
             <div class="content-block">
                 <div id="box1">
                     <h1>Currency Converter</h1>
                 </div>
 
-
-                <div id="localexhange">location</div>
-                <div id="rate">exchange</div>
-                
                 <div class="block">
                     <h3>From</h3>
                     <div class="row">
-                        <img id="littleFlag" src="https://www.countryflags.io/us/shiny/32.png">
-                        <p>USD - US Dollar</p>
+                        <img  src="https://www.countryflags.io/us/shiny/32.png">
+                        <p>USD</p>
                     </div>
                 </div>
                 <input type="number" id="input" value="1">Amount</input><br>
                 <div>
-                    <p>Result:</p><div id="result"></div>
+                    <h3>To</h3>
+                    <p>Local Currency:</p>
+                    <div class="row">
+                    <img id="littleFlagExchange" src="https://www.countryflags.io/ie/shiny/32.png">
+                    <p id="currentcyTEXTL">what</p>
+                    </div>
+                    <h2 id="result"></h2>
                 </div>
                 <div class="buttonweather">
                     <button class="col button color-blue" onclick="convert()">convert</button>
                 </div>
+                <hr>
                 
-                <div id="rate">exchange</div>
                 <div class="block">
                     <h3>From</h3>
                     <div class="row">
-                        <img id="littleFlag" src="https://www.countryflags.io/ie/shiny/32.png">
-                        <p>EUR - Euro</p>
+                        <img id="littleFlagExchangeLocal" src="https://www.countryflags.io/ie/shiny/32.png">
+                        <p id="currentcyTEXTLC">what</p>
                     </div>
                 </div>
-                <input type="number" id="inputlocal" value="1">Amount</input><br>
+                <input type="number" id="input" value="1">Amount</input><br>
                 <div>
-                    <p>Result:</p><div id="resultlocal"></div>
+                    <h3>To</h3>
+                    <p>Local Currency:</p>
+                    <div class="row">
+                    <img  src="https://www.countryflags.io/us/shiny/32.png">
+                    <p>USD</p>
+                    </div>
+                    <h2 id="result"></h2>
                 </div>
                 <div class="buttonweather">
                     <button class="col button color-blue" onclick="convertlocal()">convert</button>

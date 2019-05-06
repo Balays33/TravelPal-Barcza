@@ -41,9 +41,16 @@ $$(document).on('pageInit', function (e) {
         initMap();
 
     }
-    if (page.name === 'WeaterApp') {
+    if (page.name === 'famousbirthdays') {
         // Following code will be executed for page with data-page attribute equal to "WeaterApp"
-        myApp.alert('Here comes About page');
+        //myApp.alert('Here comes famousbirthdays page');
+        //  famousbirthdays();
+        
+    }
+    if (page.name === 'exchange') {
+        // Following code will be executed for page with data-page attribute equal to "WeaterApp"
+        //myApp.alert('Here comes exchange page');
+        openCageCC();
         
     }
     
@@ -267,20 +274,18 @@ function openCage(){
 
         contryToExchange =  responseJSON.results[0].components.country;
         var currencyCODE = responseJSON.results[0].annotations.currency.iso_code;
-        convertlocal(currencyCODE);
+        //convert(currencyCODE);
+        //convertlocal(currencyCODE);
         
-        console.log("here!!!" + countryCode);
+        console.log("Contry code here!!!" + countryCode);
         document.getElementById('littleFlag').src = "https://www.countryflags.io/" + countryCode + "/shiny/32.png";
-        document.getElementById('exchange.html/littleFlag').src = "https://www.countryflags.io/" + countryCode + "/shiny/32.png";
-        // Formattng data to put it on the front end
-        //var oc = "City: " + city + "<br>Country: " + country + "<br>Currency: " + currency;
-
+        
         // Placing formatted data on the front ed
         //document.getElementById('opencage').innerHTML = oc;
         document.getElementById('city').innerHTML = wCity;
         document.getElementById('country').innerHTML = country;
-        document.getElementById('localexhange').innerHTML = contryToExchange;
-        //CountryAPI(countryCode);
+        
+        
 
     }   
 }
@@ -288,12 +293,52 @@ function openCage(){
 
 
 ///////////////////////////////// Currency Converter USA - local //////////////////////////////////////////
-function convert(){
+// geoLocation function
+function geoLocationCC() {
+    navigator.geolocation.getCurrentPosition(geoCallback2, onError)
+}
 
+function geoCallback2(position) {
+    Latitude = position.coords.latitude;
+    Longitude = position.coords.longitude;
+    console.log('Latitude: ' + Latitude);
+    console.log('Longitude: ' + Longitude);
+    openCageCC();
+}
+function openCageCC() {
+    console.log(Latitude, Longitude);
     var http = new XMLHttpRequest();
-    const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies=EUR,GBP,CAD,PLN&source=USD';
-    //const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies=EUR,GBP,CAD,PLN&source=USD';
     
+    //const url = 'https://api.opencagedata.com/geocode/v1/json?q=47.499663+19.075570&key=a36ac62bfab44ff09eb13691ba88ea47';
+    const url = 'https://api.opencagedata.com/geocode/v1/json?q=' + Latitude + '+' + Longitude + '&key=a36ac62bfab44ff09eb13691ba88ea47';
+    http.open("GET", url);
+    http.send();
+    http.onreadystatechange = (e) => {
+        var response = http.responseText;
+        var responseJSON = JSON.parse(response);
+        console.log('openCageCC : '+responseJSON);
+        currencyCODE = responseJSON.results[0].annotations.currency.iso_code;
+        console.log('This is sending the location currency :'+currencyCODE);
+        var countryCode = responseJSON.results[0].components.country_code;
+        document.getElementById('littleFlagExchange').src = "https://www.countryflags.io/" + countryCode + "/shiny/32.png";
+        document.getElementById('currentcyTEXTL').innerHTML=currencyCODE;
+        document.getElementById('littleFlagExchangeLocal').src = "https://www.countryflags.io/" + countryCode + "/shiny/32.png";
+        document.getElementById('currentcyTEXTLC').innerHTML=currencyCODE;
+        //convert(currencyCODE);
+        //convertlocal(currencyCODE);
+    }
+}
+
+function convert(){
+    geoLocationCC();
+    var http = new XMLHttpRequest();
+    //const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies=EUR,GBP,CAD,PLN&source=USD';
+    //const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies='+ currencyCODE+'&source=USD';
+    //const url = 'https://api.exchangeratesapi.io/latest?base=USD';
+    //const url = 'https://api.exchangeratesapi.io/latest?symbols=HUF';
+    const url = 'https://free.currconv.com/api/v7/convert?q=EUR_HUF&compact=ultra&apiKey=8e9a85acc5ca01bfbb5e';
+
+    console.log('What happining here'+currencyCODE);
     http.open("GET", url);
     http.send();
   
@@ -309,30 +354,32 @@ function convert(){
   
       // Printing the result JSON to the console
       console.log(responseJSON);
-      var rate = responseJSON.quotes.USDEUR;
+      help = "EUR_"+currencyCODE;
+      console.log(help);
+     var rate = responseJSON.EUR_HUF;
+    
       console.log("exchange java  :"+rate);
-      
-      document.getElementById('rate').innerHTML = rate;
-      
+        /*
+      var rate = responseJSON.rates.currencyCODE;
+      console.log("exchange java  :"+rate);
       var input =document.getElementById('input').value;
       console.log("INPUT here"+input);
       var result = input * rate;
       document.getElementById('result').innerHTML = result;
       
-    
+    */
   }
 }
  //-----------------------------------------------------------------------------------------/////
 
- ///////////////////////////////// Currency Converter Local- USD //////////////////////////////////////////
-
+ ///////////////////////////////// Currency Converter Local- USD ///////////////////////////////////////////
  
-function convertlocal(currencyCODE){
+function convertlocal(){
 
     var http = new XMLHttpRequest();
     //const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies=EUR,GBP,CAD,PLN&source=USD';
     //const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies=USD&source=' + currencyCODE ;
-    const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&convert?from=' + currencyCODE + '&to=USD&amount=100';
+    const url = 'https://api.exchangeratesapi.io/latest?base='+currencyCODE;
     console.log("should" +currencyCODE);
     http.open("GET", url);
     http.send();
@@ -348,9 +395,10 @@ function convertlocal(currencyCODE){
       var responseJSON = JSON.parse(response); 
   
       // Printing the result JSON to the console
-      /*
+      
       console.log(responseJSON);
-      var rate = responseJSON.quotes.USDEUR;
+      
+      var rate = responseJSON.rates.USD;
       console.log("exchange java  :"+rate);
       
       document.getElementById('rate').innerHTML = rate;
@@ -359,7 +407,7 @@ function convertlocal(currencyCODE){
       console.log("INPUT here from the local"+input);
       var resultlocal = input * rate;
       document.getElementById('resultlocal').innerHTML = result;
-      */
+      
     
   }
 }
@@ -530,32 +578,45 @@ function cameraCallback(imageData){
 /////////////////////////////////////////////////////////////////////////////
 
 
-//---------------------------action sheet----------------------------------////
-/*
-var app = new Framework7();
+//---------------------------Famous Birthdays App----------------------------------////
 
-var $$ = Dom7;
+function famousbirthdays(){
 
-//- One group, three buttons
-var ac1 = app.actions.create({
-  buttons: [
-    {
-      text: 'Button1',
-      bold: true
-    },
-    {
-      text: 'Button2'
-    },
-    {
-      text: 'Cancel',
-      color: 'red'
-    },
-  ]
-})
-
-$$('.ac-1').on('click', function () {
-    ac1.open();
-});
-*/
-
+    var http = new XMLHttpRequest();
+    const url = 'https://celebritybucks.com/developers/birthdays/JSON';
+    
+    http.open("GET", url);
+    http.send();
+  
+    http.onreadystatechange = (e) => {
+          
+      // First, I'm extracting the reponse from the 
+      // http object in text format
+      var response = http.responseText;
+  
+      // As we know that answer is a JSON object,
+      // we can parse it and handle it as such
+      var responseJSON = JSON.parse(response); 
+  
+      // Printing the result JSON to the console
+      
+      console.log(responseJSON);
+      
+      var length = responseJSON.Birthdays.length;
+      console.log(length);
+      
+        var i;
+        demop = document.getElementById('famousbirthdaysHOLDER');
+        //demop1 = document.getElementById('famousbirthdaysHolderImage');
+        for (i = 0; i < length; i++) {
+          var name = responseJSON.Birthdays[i].name;
+          var dob = responseJSON.Birthdays[i].dob;
+          var age = responseJSON.Birthdays[i].age;
+          demop.innerHTML = demop.innerHTML+name + "_____b-day: "+dob + "____age: "+age +"<br><hr>" ;
+          //demop1.innerHTML = demop1.innerHTML+dob + "<br>";
+          //famousbirthdaysHOLDERbday
+          console.log(i,name);
+        }
+  }
+}
 //////////////////////////////////////////////
