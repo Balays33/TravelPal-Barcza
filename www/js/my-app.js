@@ -309,8 +309,8 @@ function openCageCC() {
     console.log(Latitude, Longitude);
     var http = new XMLHttpRequest();
     
-    //const url = 'https://api.opencagedata.com/geocode/v1/json?q=47.499663+19.075570&key=a36ac62bfab44ff09eb13691ba88ea47';
-    const url = 'https://api.opencagedata.com/geocode/v1/json?q=' + Latitude + '+' + Longitude + '&key=a36ac62bfab44ff09eb13691ba88ea47';
+    const url = 'https://api.opencagedata.com/geocode/v1/json?q=47.499663+19.075570&key=a36ac62bfab44ff09eb13691ba88ea47';
+   // const url = 'https://api.opencagedata.com/geocode/v1/json?q=' + Latitude + '+' + Longitude + '&key=a36ac62bfab44ff09eb13691ba88ea47';
     http.open("GET", url);
     http.send();
     http.onreadystatechange = (e) => {
@@ -334,9 +334,9 @@ function convert(){
     var http = new XMLHttpRequest();
     //const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies=EUR,GBP,CAD,PLN&source=USD';
     //const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies='+ currencyCODE+'&source=USD';
-    //const url = 'https://api.exchangeratesapi.io/latest?base=USD';
+    const url = 'https://api.exchangeratesapi.io/latest?base=USD';
     //const url = 'https://api.exchangeratesapi.io/latest?symbols=HUF';
-    const url = 'https://free.currconv.com/api/v7/convert?q=EUR_HUF&compact=ultra&apiKey=8e9a85acc5ca01bfbb5e';
+   // const url = 'https://free.currconv.com/api/v7/convert?q=EUR_HUF&compact=ultra&apiKey=8e9a85acc5ca01bfbb5e';
 
     console.log('What happining here'+currencyCODE);
     http.open("GET", url);
@@ -356,7 +356,7 @@ function convert(){
       console.log(responseJSON);
       help = "EUR_"+currencyCODE;
       console.log(help);
-     var rate = responseJSON.EUR_HUF;
+        var rate = responseJSON.rates[currencyCODE];
     
       console.log("exchange java  :"+rate);
         /*
