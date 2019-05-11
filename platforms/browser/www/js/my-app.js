@@ -308,9 +308,12 @@ function geoCallback2(position) {
 function openCageCC() {
     console.log(Latitude, Longitude);
     var http = new XMLHttpRequest();
-    
+    /*
     const url = 'https://api.opencagedata.com/geocode/v1/json?q=47.499663+19.075570&key=a36ac62bfab44ff09eb13691ba88ea47';
-   // const url = 'https://api.opencagedata.com/geocode/v1/json?q=' + Latitude + '+' + Longitude + '&key=a36ac62bfab44ff09eb13691ba88ea47';
+
+    only test purpose Budapest location
+    */
+    const url = 'https://api.opencagedata.com/geocode/v1/json?q=' + Latitude + '+' + Longitude + '&key=a36ac62bfab44ff09eb13691ba88ea47';
     http.open("GET", url);
     http.send();
     http.onreadystatechange = (e) => {
@@ -332,11 +335,15 @@ function openCageCC() {
 function convert(){
     geoLocationCC();
     var http = new XMLHttpRequest();
-    //const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies=EUR,GBP,CAD,PLN&source=USD';
-    //const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies='+ currencyCODE+'&source=USD';
     const url = 'https://api.exchangeratesapi.io/latest?base=USD';
-    //const url = 'https://api.exchangeratesapi.io/latest?symbols=HUF';
-   // const url = 'https://free.currconv.com/api/v7/convert?q=EUR_HUF&compact=ultra&apiKey=8e9a85acc5ca01bfbb5e';
+    /*
+        different api 
+        const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies=EUR,GBP,CAD,PLN&source=USD';
+        const url = 'http://apilayer.net/api/live?access_key=310ff77de7a824ad7b6774e18cf4e29e&currencies='+ currencyCODE+'&source=USD';
+        const url = 'https://api.exchangeratesapi.io/latest?symbols=HUF';
+        const url = 'https://free.currconv.com/api/v7/convert?q=EUR_HUF&compact=ultra&apiKey=8e9a85acc5ca01bfbb5e';
+    */
+   
 
     console.log('What happining here'+currencyCODE);
     http.open("GET", url);
@@ -356,18 +363,13 @@ function convert(){
       console.log(responseJSON);
       help = "EUR_"+currencyCODE;
       console.log(help);
-        var rate = responseJSON.rates[currencyCODE];
-    
-      console.log("exchange java  :"+rate);
-        /*
-      var rate = responseJSON.rates.currencyCODE;
-      console.log("exchange java  :"+rate);
+      var rate = responseJSON.rates[currencyCODE];
+      console.log("exchange java  :"+rate); 
       var input =document.getElementById('input').value;
       console.log("INPUT here"+input);
       var result = input * rate;
       document.getElementById('result').innerHTML = result;
       
-    */
   }
 }
  //-----------------------------------------------------------------------------------------/////
@@ -401,12 +403,10 @@ function convertlocal(){
       var rate = responseJSON.rates.USD;
       console.log("exchange java  :"+rate);
       
-      document.getElementById('rate').innerHTML = rate;
-      
-      var input =document.getElementById('inputlocal').value;
+      var input =document.getElementById('input2').value;
       console.log("INPUT here from the local"+input);
       var resultlocal = input * rate;
-      document.getElementById('resultlocal').innerHTML = result;
+      document.getElementById('result2').innerHTML = resultlocal;
       
     
   }
@@ -417,6 +417,12 @@ function convertlocal(){
 
 
  ////////////////////////////////////// Google MAP ////////////////////////////////////
+
+ var house_number;
+ var road;
+ var city;
+ var postcode;
+ var country;
 
  function initMap() {
      //(Latitude,Longitude lat: 53.346, lng: -6.2588
@@ -465,11 +471,11 @@ function writeOutInfo(){
 
         console.log(responseJSON);
 
-        var house_number = responseJSON.results[0].components.house_number;
-        var road = responseJSON.results[0].components. road;
-        var city = responseJSON.results[0].components.city;
-        var postcode =responseJSON.results[0].components.postcode;
-        var country = responseJSON.results[0].components.country;
+        house_number = responseJSON.results[0].components.house_number;
+        road = responseJSON.results[0].components. road;
+        city = responseJSON.results[0].components.city;
+        postcode =responseJSON.results[0].components.postcode;
+        country = responseJSON.results[0].components.country;
         var currency = responseJSON.results[0].annotations.currency.name;
 
         document.getElementById('getlocatinonC').innerHTML ="House number: "+house_number+"<br>Road: "+road+ "<br>City: " + city +"<br>Postcode:"+postcode+ 
@@ -479,32 +485,33 @@ function writeOutInfo(){
 
 
  ////-------------------------------------------   Storing files in the phone -----------------------------------------//////
-
+ //var fileToCreate;
 
 function tryingFile(){
 
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemCallback, onError);
     //document.addEventListener("deviceready", function() { 
         //window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemCallback, onError);
-      //}, false);
-     
-   
+      //}, false); 
+      console.log('Saving My  Latitude: '+Latitude+'Longitude: '+Longitude);
 }
 
 function fileSystemCallback(fs){
 
     // Name of the file I want to create
-    var fileToCreate = "newPersistentFile.txt";
-
+    var fileToCreate = "locationFile.txt";
+    //fileToCreate = "locationFile.txt";
     // Opening/creating the file
     fs.root.getFile(fileToCreate, fileSystemOptionals, getFileCallback, onError);
 }
 
 var fileSystemOptionals = { create: true, exclusive: false };
-
+var entry;
 function getFileCallback(fileEntry){
     
-    var dataObj = new Blob(['Hello'], { type: 'text/plain' });
+    var dataObj = new Blob([' Latitude: '+Latitude,' \nLongitude: '+Longitude,' \nCurrency code: '+currencyCODE,
+                            '\n house_number: '+house_number,' \nroad: '+road,' \ncity: '+city,' \npostcode: '+postcode,' \ncountry: '+country], { type: 'text/plain' });
+    entry = fileEntry;
     // Now decide what to do
     // Write to the file
     writeFile(fileEntry, dataObj);
@@ -552,6 +559,27 @@ function readFile(fileEntry) {
 
             console.log("Successful file read: " + this.result);
             console.log("file path: " + fileEntry.fullPath);
+
+        };
+
+    }, onError);
+}
+
+// Let's read some files
+function readFilePrintOut() {
+
+    // Get the file from the file entry
+    entry.file(function (file) {
+        
+        // Create the reader
+        var reader = new FileReader();
+        reader.readAsText(file);
+
+        reader.onloadend = function() {
+
+            console.log("Successful file read: " + this.result);
+            console.log("file path: " + entry.fullPath);
+            document.getElementById('printOutfromFile').innerHTML =reader.result;
 
         };
 
