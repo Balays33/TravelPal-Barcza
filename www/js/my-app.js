@@ -18,6 +18,7 @@ $$(document).on('deviceready', function() {
     geoLocation();
     getTime();
     convert();
+    tryingFile();
 });
 
 
@@ -39,6 +40,7 @@ $$(document).on('pageInit', function (e) {
         // Following code will be executed for page with data-page attribute equal to "about"
         //myApp.alert('Here comes About page');
         initMap();
+        tryingFile();
 
     }
     if (page.name === 'famousbirthdays') {
@@ -499,6 +501,7 @@ function writeOutInfo(){
 function tryingFile(){
 
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemCallback, onError);
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemCallback2, onError);
     //document.addEventListener("deviceready", function() { 
         //window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemCallback, onError);
       //}, false); 
@@ -509,31 +512,37 @@ function fileSystemCallback(fs){
 
     // Name of the file I want to create
     var fileToCreate = "locationFile.txt";
+   // var fileToCreate2 = "newPersistentPic.jpg";
     //fileToCreate = "locationFile.txt";
     // Opening/creating the file
     fs.root.getFile(fileToCreate, fileSystemOptionals, getFileCallback, onError);
+    //fs.root.getFile(fileToCreate2, fileSystemOptionals, getFileCallback2, onError);
 }
 
 var fileSystemOptionals = { create: true, exclusive: false };
 var entry;
 function getFileCallback(fileEntry){
     
-    var dataObj = new Blob([' Latitude: '+Latitude,' \nLongitude: '+Longitude,' \nCurrency code: '+currencyCODE,
-                            '\n house_number: '+house_number,' \nroad: '+road,' \ncity: '+city,' \npostcode: '+postcode,' \ncountry: '+country], { type: 'text/plain' });
+    //var dataObj = new Blob([' Latitude: '+Latitude,' \nLongitude: '+Longitude,' \nCurrency code: '+currencyCODE,
+                       //     '\n house_number: '+house_number,' \nroad: '+road,' \ncity: '+city,' \npostcode: '+postcode,' \ncountry: '+country], { type: 'text/plain' });
     entry = fileEntry;
     // Now decide what to do
     // Write to the file
-    writeFile(fileEntry, dataObj);
-
+    //writeFile(fileEntry, dataObj);
+    //writeFile(fileEntry);
     // Or read the file
-    readFile(fileEntry);
+    //readFile(fileEntry);
 }
 
 // Let's write some files
-function writeFile(fileEntry, dataObj) {
+function writeFile() {
+    writeOutInfo();                                         // you have to get info to save it
+    
+    var dataObj = new Blob([' Latitude: '+Latitude,' \nLongitude: '+Longitude,' \nCurrency code: '+currencyCODE,
+                            '\n house_number: '+house_number,' \nroad: '+road,' \ncity: '+city,' \npostcode: '+postcode,' \ncountry: '+country], { type: 'text/plain' });
 
     // Create a FileWriter object for our FileEntry (log.txt).
-    fileEntry.createWriter(function (fileWriter) {
+    entry.createWriter(function (fileWriter) {
 
         // If data object is not passed in,
         // create a new Blob instead.
@@ -567,7 +576,7 @@ function readFile(fileEntry) {
         reader.onloadend = function() {
 
             console.log("Successful file read: " + this.result);
-            console.log("file path: " + fileEntry.fullPath);
+            console.log("file path: " + entry.fullPath);
 
         };
 
@@ -609,7 +618,71 @@ function readFilePrintOut() {
 function cameraCallback(imageData){
     var image = document.getElementById('cameraPicture');
     image.src = imageData;
+    var dataObjPicture = new Blob([imageData], { type: 'image/jpeg' });
+    
+    writePic(dataObjPicture);
 
+}
+
+////-------------------------------------------   Storing picture on the mobile phone -----------------------------------------//////
+function fileSystemCallback2(fs){
+
+    // Name of the file I want to create
+    var fileToCreate2 = "newPersistentPic.jpg";
+    //fileToCreate = "locationFile.txt";
+    // Opening/creating the file
+    fs.root.getFile(fileToCreate2, fileSystemOptionals, getFileCallback2, onError);
+}
+
+var entry2;
+function getFileCallback2(fileEntry){
+    
+    entry2 = fileEntry;
+
+}
+
+function writePic(dataObjPicture) {
+
+    // THIS IS IMPORTANT, THIS IS THE GLOBAL VARIABLE
+    entry2.createWriter(function (fileWriter) {
+
+        // SAVING WHATEVER OBJECT IS PASSED FROM OUTSIDE
+        fileWriter.write(dataObjPicture);
+
+        fileWriter.onwriteend = function() {
+            console.log("Successful file write...");
+        };
+
+        fileWriter.onerror = function (e) {
+            console.log("Failed file write: " + e.toString());
+        };
+
+    });
+}
+
+
+function readPic() {
+
+    // AND AGAIN, I USE THE GLOBAL VARIBLE EVERYONE IS SEEING
+    entry2.file(function (file) {
+        
+        // Create the reader
+        var reader = new FileReader();
+
+        // READ THE FILE AS A BINARY STRING
+        reader.readAsBinaryString(file);
+
+        reader.onloadend = function() {
+
+            console.log("Successful file read: " + this.result);
+            console.log("file path: " + entry2.fullPath);
+
+            // AND PUT THE RESULT IN THE FRONT END
+            document.getElementById('display').src = reader.result;
+
+        };
+
+    }, onError);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -691,3 +764,6 @@ function nasa(){
       
   }
 }
+
+
+/////////////////////////////////////////////////////////
