@@ -51,7 +51,29 @@
     <!-- Left panel with reveal effect-->
     <div class="panel panel-left panel-reveal">
         <div class="content-block">
-            <p>Left panel content goes here</p>
+            <h2 class="menuname">Travel Pal - Balazs Barcza</h2>
+            <hr>
+            <br>
+            <a href="index.html">Home page</a>
+            <br>
+            <br>
+            <hr>
+            <br>
+            <a href="exchange.html">Exchange page</a>
+            <br>
+            <br>
+            <hr>
+            <br>
+            <a href="famousbirthdays.html">Famous Birthdays page</a>
+            <br>
+            <br>
+            <hr>
+            <br>
+            <a href="about.html">Map page</a>
+            <br>
+            <br>
+            <hr>
+            <br>
         </div>
     </div>
 
@@ -83,47 +105,52 @@
                              <!-- this place the location and time -->
                             <div class="Welcome">
                                 <h1 id="city">Dublin</h1>
-                                <h3 id="country"></h3> 
-                                <img id="littleFlag" src="https://www.countryflags.io/us/shiny/32.png" >
+                                <h3 id="country"></h3>
+                                <img id="littleFlag" src="https://www.countryflags.io/us/shiny/32.png">
                                 <h1 id="gettimes"></h1>
                                 <h2 id="getmount"></h2>
 
+                            <!-- Weather place holder -->
                             </div>
                             <div class="Weather">
                                 <h4>Weather</h4>
-                            <div id="inline">
-                                <h1 id="temperatureMain" +°C></h1>
-                                <h3>°C</h3>
-                                <div class='col-lg-4' style = 'margin-left: 5%'>
-                                        <canvas id = 'icon'></canvas>
-                                       </div>
-                            </div>
+                                <div id="inline">
+                                    <h1 id="temperatureMain" +°C></h1>
+                                    <h3>°C</h3>
+                                    <div class='col-lg-4' style='margin-left: 5%'>
+                                        <canvas id='icon'></canvas>
+                                    </div>
+                                </div>
                                 <p id="daily"></p>
-                                
+                            
                             </div>
 
-                             <!-- get geolocation -->
-                             <div id="geolocation">Waiting for position..</div>
-                             <div id="opencage">Waiting for location</div>
-                             <div id="gettime">Waiting for time</div>
-                             <h1>Hello David It is Me Balazs</h1>
- 
+                           
+                             
+
                              <div class="block">
                                  <div class="row">
-                                   <button class="col button button-fill" onclick="geoLocation()">Current Position</button>
-                                   <button class="col button button-fill" onclick="openCage()">Current location</button>
-                                   <button class="col button button-fill" onclick="getTime()">Get Time</button>
+                                    <button class="col button color-blue"><a class="link" href="exchange.html"> <i class="icon"></i><span>Exchange</span> </a></button>
+                                    <button class="col button color-blue"><a class="link" href="famousbirthdays.html"> <i class="icon"></i> <span>Famous Birthdays</span> </a></button>
+                                    <button class="col button color-blue"><a class="link" href="about.html"> <i class="icon"></i><span>Map</span> </a></button>
+                                     <!--<button class="col button color-blue"  onclick="getTime()">Get Time</button>-->
                                  </div>
                                </div>
-
+                              
                             <!-- Link to another page -->
                             <div id="box">
+                                <!--
                                 <a href="exchange.html">Exchange app</a>
                                 <br>
-                                <a href="weather.html">Weather app</a>
+                                <a href="famousbirthdays.html">Famous Birthdays app</a>
                                 <br>
-                                <a href="about.html">About app</a>
+                                <a href="about.html">Map app</a>
+                                <br>
+                                -->
+                                <br>
+                                <a href="google.html">Nasa</a>
                             </div>
+                            <button class="col button color-blue" onclick="refresh()">Refresh page</button>
                         </div>
                     </div>
                 </div>
@@ -139,11 +166,13 @@
         </div>
     </div>
 
+    
+
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
     <script type="text/javascript" src="js/my-app.js"></script>
     <script src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
-    <script type="text/javascript" src="js/exchange.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApFPNQ2WxbEueUXMJBPHjLenlPnFo68ls&callback=initMap"></script>
     <script type="text/javascript" src="js/weather.js"></script>
 
 </body>

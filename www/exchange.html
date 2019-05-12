@@ -1,7 +1,5 @@
 <!-- We don't need a full layout in this file because this page will be parsed with Ajax. -->
-<script type="text/javascript" src="js/exchange.js"></script>
-<script type="text/javascript" src="js/my-app.js"></script>
-<script src="js/exchange.js"></script>
+
 <!-- Top Navbar-->
 <div class="navbar">
     <div class="navbar-inner">
@@ -11,7 +9,7 @@
                 <span>Back</span>
             </a>
         </div>
-        <div class="center sliding">About</div>
+        <div class="center sliding">Currency Converter</div>
         <div class="right">
             <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
         </div>
@@ -19,29 +17,54 @@
 </div>
 <div class="pages">
 
-    <div data-page="about" class="page">
+    <div data-page="exchange" class="page">
         <div class="page-content">
             <div class="content-block">
                 <div id="box1">
                     <h1>Currency Converter</h1>
                 </div>
 
-
-
-                <div id="exchange/rated">exchange</div>
                 <div class="block">
-                        <h3>From</h3>
-                <div class="row">
-                    <img id="littleFlag" src="https://www.countryflags.io/us/shiny/32.png" >
-                    <div id="test">picture</div>
-                    <p>USD - US Dollar</p>
-                </div>
+                    <h3>From</h3>
+                    <div class="row">
+                        <img  src="https://www.countryflags.io/us/shiny/32.png">
+                        <p>USD</p>
+                    </div>
                 </div>
                 <input type="number" id="input" value="1">Amount</input><br>
-                <div id="exc"></div>
-
+                <div>
+                    <h3>To</h3>
+                    <p>Local Currency:</p>
+                    <div class="row">
+                    <img id="littleFlagExchange" src="https://www.countryflags.io/ie/shiny/32.png">
+                    <p id="currentcyTEXTL">what</p>
+                    </div>
+                    <h2 id="result"></h2>
+                </div>
                 <div class="buttonweather">
                     <button class="col button color-blue" onclick="convert()">convert</button>
+                </div>
+                <hr>
+                
+                <div class="block">
+                    <h3>Local Currency:</h3>
+                    <div class="row">
+                        <img id="littleFlagExchangeLocal" src="https://www.countryflags.io/ie/shiny/32.png">
+                        <p id="currentcyTEXTLC">what</p>
+                    </div>
+                </div>
+                <input type="number" id="input2" value="1">Amount</input><br>
+                <div>
+                    <h3>To</h3>
+                    <p></p>
+                    <div class="row">
+                    <img  src="https://www.countryflags.io/us/shiny/32.png">
+                    <p>USD</p>
+                    </div>
+                    <h2 id="result2"></h2>
+                </div>
+                <div class="buttonweather">
+                    <button class="col button color-blue" onclick="convertlocal()">convert</button>
                 </div>
             </div>
         </div>

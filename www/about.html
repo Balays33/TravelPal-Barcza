@@ -1,5 +1,5 @@
 <!-- We don't need a full layout in this file because this page will be parsed with Ajax. -->
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApFPNQ2WxbEueUXMJBPHjLenlPnFo68ls&callback=initMap"></script>
 <!-- Top Navbar-->
 <div class="navbar">
     <div class="navbar-inner">
@@ -9,7 +9,7 @@
                 <span>Back</span>
             </a>
         </div>
-        <div class="center sliding">About</div>
+        <div class="center sliding">Google MAP</div>
         <div class="right">
             <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
         </div>
@@ -19,9 +19,29 @@
     <div data-page="about" class="page">
         <div class="page-content">
             <div class="content-block">
-                <p>Here is About page!</p>
-                <p>Fusce eros lectus, accumsan eget mi vel, iaculis tincidunt felis. Nulla tincidunt pharetra sagittis. Fusce in felis eros. Nulla sit amet aliquam lorem, et gravida ipsum. Mauris consectetur nisl non sollicitudin tristique. Praesent vitae metus ac quam rhoncus mattis vel et nisi. Aenean aliquet, felis quis dignissim iaculis, lectus quam tincidunt ligula, et venenatis turpis risus sed lorem. Morbi eu metus elit. Ut vel diam dolor.</p>
+                <div id="box1">
+                    <h1>Google MAP</h1>
+                </div>
+                <div>
+                    <div id="map"></div>
+                    <button class="col button color-blue" onclick="initMap()">GoogleMAP reload</button>
+                    <button class="col button color-blue" onclick="writeFile()">Save your loaction data</button>
+                    <div id="gpslocation"></div>
+                    <div id="getlocatinonC">waiting for the City country</div>
+                </div>
+                
+                <div>
+                    <img id="cameraPicture" height="50%" width="50%">
+                    <!--<img id="cameraPicture" height="50%" width="50%" style="transform:rotate(90deg);" > -->
+                
+                    <button class="col button color-green" onclick="takePics()">takePics</button>
+                    <button class="col button color-blue" onclick="readFilePrintOut()">ReadFile</button>
+                    <button class="col button color-blue" onclick="readPic()"> display picture</button>
+                </div>
+                    <div id="printOutfromFile"></div>
+                    <img id="display" width="50%" height="50%"> </img>
             </div>
         </div>
     </div>
 </div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApFPNQ2WxbEueUXMJBPHjLenlPnFo68ls&callback=initMap"></script>

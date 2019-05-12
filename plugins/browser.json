@@ -1,21 +1,31 @@
 {
-    "prepare_queue": {
-        "installed": [],
-        "uninstalled": []
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-console": {
+      "PACKAGE_NAME": "ie.TravelPall.Barcza"
     },
-    "config_munge": {
-        "files": {}
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "ie.TravelPall.Barcza"
     },
-    "installed_plugins": {
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "ie.TravelPall.Barcza"
-        },
-        "cordova-plugin-console": {
-            "PACKAGE_NAME": "ie.TravelPall.Barcza"
-        },
-        "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "ie.TravelPall.Barcza"
-        }
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "ie.TravelPall.Barcza"
+    }
+  },
+  "dependent_plugins": {
+    "cordova-plugin-chrome-apps-common": {
+      "PACKAGE_NAME": "ie.TravelPall.Barcza"
     },
-    "dependent_plugins": {}
+    "cordova-plugin-chrome-apps-filesystem": {
+      "PACKAGE_NAME": "ie.TravelPall.Barcza"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "ie.TravelPall.Barcza"
+    }
+  }
 }
