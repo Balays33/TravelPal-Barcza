@@ -53,6 +53,12 @@ $$(document).on('pageInit', function (e) {
         openCageCC();
         
     }
+    if (page.name === 'google') {
+        // Following code will be executed for page with data-page attribute equal to "WeaterApp"
+        myApp.alert('Here comes exchange page');
+        
+        
+    }
     
 })
 
@@ -63,7 +69,10 @@ $$(document).on('pageInit', '.page[data-page="about"]', function (e) {
 })
 
 
-
+function refresh(){
+    geoLocation();
+    getTime();
+}
 
 
 
@@ -648,3 +657,37 @@ function famousbirthdays(){
   }
 }
 //////////////////////////////////////////////
+
+//---------------------------Nasa App----------------------------------////
+
+function nasa(){
+
+    var http = new XMLHttpRequest();
+    const url = 'https://api.nasa.gov/planetary/apod?api_key=CjP1wWzxKJxxqDNaCe8YFbd1hQOtgOJrG3HRJxUB';
+    
+    http.open("GET", url);
+    http.send();
+  
+    http.onreadystatechange = (e) => {
+          
+      // First, I'm extracting the reponse from the 
+      // http object in text format
+      var response = http.responseText;
+  
+      // As we know that answer is a JSON object,
+      // we can parse it and handle it as such
+      var responseJSON = JSON.parse(response); 
+  
+      // Printing the result JSON to the console
+      
+      console.log(responseJSON);
+      
+      var picture = responseJSON.hdurl;
+      console.log(picture);
+      
+
+      //picture = document.getElementById('pictureOfDay');
+      document.getElementById('pictureOfDay').src = picture;
+      
+  }
+}
